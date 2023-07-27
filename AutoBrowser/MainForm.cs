@@ -17,7 +17,8 @@ namespace AutoBrowser
     public partial class MainForm : Form
     {
         BindingList<WorkEvent> bindings;
-
+        readonly string TxtFileFilter = "텍스트파일(*.txt)|*.txt";
+        readonly string JsonFileFilter = "Json파일(*.json)|*.json";
         public MainForm()
         {
             var cefSettings = new CefSettings
@@ -53,27 +54,38 @@ namespace AutoBrowser
                 foreach (WorkEvent item in WorkManager.WorkEvents)
                 {
                     current = item;
+                    LoadUrlAsyncResponse response = null;
                     switch (item.EventType)
                     {
                         case BrowserEvent.Click:
                             await this.chromiumWebBrowser.SendMouseClickEventAsync(item.Path);
                             break;
                         case BrowserEvent.Input:
-                            await this.chromiumWebBrowser.SendKeyEventAsync(item.Path, item.Value.ToString());
+                            await this.chromiumWebBrowser.SendKeyEventAsync(item.Path, item.Value);
                             break;
                         case BrowserEvent.Wait:
-                            int sleep = Convert.ToInt32(item.Value) * 1000;
-                            Thread.Sleep(sleep);
+                            await Task.Factory.StartNew(() =>
+                            {
+                                int sleep = Convert.ToInt32(item.Value) * 1000;
+                                Thread.Sleep(sleep);
+                            });
                             break;
                         case BrowserEvent.Load:
-                            LoadUrlAsyncResponse response = await this.chromiumWebBrowser.LoadUrlAsync(item.Path.ToString());
+                            response = await this.chromiumWebBrowser.LoadUrlAsync(item.Path);
+                            do { Thread.Sleep(100); }
+                            while (!response.Success);
                             break;
                         case BrowserEvent.Get:
                             List<string> split = item.Path.Split("\n");
                             foreach (var address in split)
                             {
-                                LoadUrlAsyncResponse response2 = await this.chromiumWebBrowser.LoadUrlAsync(address.Trim());
-                                string html = await this.chromiumWebBrowser.GetMainFrame().GetSourceAsync();
+                                if (string.IsNullOrWhiteSpace(address)) continue;
+                                response = await this.chromiumWebBrowser.LoadUrlAsync(address.Trim());
+                                while (chromiumWebBrowser.IsLoading)
+                                {
+                                    Thread.Sleep(10);
+                                }
+                                string html = await this.chromiumWebBrowser.GetSourceAsync();
                                 string text = html.SelectNode(item.Value, HtmlType.InnerText);
                                 sb.AppendLine(text);
                             }
@@ -86,16 +98,26 @@ namespace AutoBrowser
                 var scrapTexts = sb.ToString();
                 if (!string.IsNullOrWhiteSpace(scrapTexts))
                 {
-                    var result = MessageBox.Show("스크래핑한 텍스트를 클립보드에 저장시겠습니까?", "수집", MessageBoxButtons.OKCancel);
+                    var result = MessageBox.Show("수집한 내용을 저장시겠습니까?", "AutoBrowser",
+                        MessageBoxButtons.OKCancel);
                     if (result == DialogResult.OK)
                     {
-                        Clipboard.SetText(scrapTexts);
+                        var save = new SaveFileDialog();
+                        var now = DateTime.UtcNow.ToString("yyyyMMddHHmmss").ToString();
+                        save.FileName = $"save.txt";
+                        save.Filter = TxtFileFilter;
+                        DialogResult dialogResult = save.ShowDialog();
+                        if (dialogResult == DialogResult.OK)
+                        {
+                            System.IO.File.WriteAllText(save.FileName, scrapTexts);
+                            //Clipboard.SetText(scrapTexts);
+                        }
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                MessageBox.Show($"잘못된 동작을 설정입니다.\n{current?.ToString()}");
+                MessageBox.Show($"잘못된 동작을 설정입니다.\n{exception.Message}\n{current?.ToString()}");
             }
             finally
             {
@@ -201,7 +223,8 @@ namespace AutoBrowser
                 return;
             }
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "|*.json";
+            saveFileDialog.FileName = "work.json";
+            saveFileDialog.Filter = JsonFileFilter;
             var result = saveFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -214,10 +237,12 @@ namespace AutoBrowser
             }
         }
 
+
         private void ToolStripMenuItemWorkLoad_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "|*.json";
+            openFileDialog.FileName = "work.json";
+            openFileDialog.Filter = JsonFileFilter;
             openFileDialog.InitialDirectory = Properties.Settings.Default.SavedDirectory;
             var result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
@@ -234,6 +259,11 @@ namespace AutoBrowser
                 }
             }
 
+        }
+
+        private void dataGridViewEvents_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            DataReload();
         }
     }
 }
