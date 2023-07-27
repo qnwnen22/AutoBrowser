@@ -30,6 +30,7 @@ namespace AutoBrowser
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripMenuItemWorkAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWorkDo = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,42 +71,42 @@ namespace AutoBrowser
             this.ToolStripMenuItemSetting});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1434, 35);
+            this.menuStrip1.Size = new System.Drawing.Size(1434, 36);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // ToolStripMenuItemWorkAdd
             // 
             this.ToolStripMenuItemWorkAdd.Name = "ToolStripMenuItemWorkAdd";
-            this.ToolStripMenuItemWorkAdd.Size = new System.Drawing.Size(100, 29);
+            this.ToolStripMenuItemWorkAdd.Size = new System.Drawing.Size(100, 30);
             this.ToolStripMenuItemWorkAdd.Text = "동작추가";
             this.ToolStripMenuItemWorkAdd.Click += new System.EventHandler(this.ToolStripMenuItemWorkAdd_Click);
             // 
             // ToolStripMenuItemWorkDo
             // 
             this.ToolStripMenuItemWorkDo.Name = "ToolStripMenuItemWorkDo";
-            this.ToolStripMenuItemWorkDo.Size = new System.Drawing.Size(100, 29);
+            this.ToolStripMenuItemWorkDo.Size = new System.Drawing.Size(100, 30);
             this.ToolStripMenuItemWorkDo.Text = "동작실행";
             this.ToolStripMenuItemWorkDo.Click += new System.EventHandler(this.ToolStripMenuItemWorkDo_Click);
             // 
             // ToolStripMenuItemWorkSave
             // 
             this.ToolStripMenuItemWorkSave.Name = "ToolStripMenuItemWorkSave";
-            this.ToolStripMenuItemWorkSave.Size = new System.Drawing.Size(100, 29);
+            this.ToolStripMenuItemWorkSave.Size = new System.Drawing.Size(100, 30);
             this.ToolStripMenuItemWorkSave.Text = "동작저장";
             this.ToolStripMenuItemWorkSave.Click += new System.EventHandler(this.ToolStripMenuItemWorkSave_Click);
             // 
             // ToolStripMenuItemWorkLoad
             // 
             this.ToolStripMenuItemWorkLoad.Name = "ToolStripMenuItemWorkLoad";
-            this.ToolStripMenuItemWorkLoad.Size = new System.Drawing.Size(142, 29);
+            this.ToolStripMenuItemWorkLoad.Size = new System.Drawing.Size(142, 30);
             this.ToolStripMenuItemWorkLoad.Text = "동작 불러오기";
             this.ToolStripMenuItemWorkLoad.Click += new System.EventHandler(this.ToolStripMenuItemWorkLoad_Click);
             // 
             // ToolStripMenuItemSetting
             // 
             this.ToolStripMenuItemSetting.Name = "ToolStripMenuItemSetting";
-            this.ToolStripMenuItemSetting.Size = new System.Drawing.Size(64, 29);
+            this.ToolStripMenuItemSetting.Size = new System.Drawing.Size(64, 30);
             this.ToolStripMenuItemSetting.Text = "설정";
             // 
             // panel1
@@ -171,10 +172,10 @@ namespace AutoBrowser
             this.MainPanel.AccessibleRole = System.Windows.Forms.AccessibleRole.SplitButton;
             this.MainPanel.Controls.Add(this.panel2);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPanel.Location = new System.Drawing.Point(0, 35);
+            this.MainPanel.Location = new System.Drawing.Point(0, 36);
             this.MainPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(1434, 807);
+            this.MainPanel.Size = new System.Drawing.Size(1434, 806);
             this.MainPanel.TabIndex = 1;
             // 
             // panel2
@@ -247,6 +248,7 @@ namespace AutoBrowser
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";

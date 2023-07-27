@@ -38,7 +38,6 @@ namespace AutoBrowser
             //Point location = worksForm.Location;
             //location.Offset(this.worksForm.Width, 0);
             //this.Location = location;
-            this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
             this.comboBoxEvent.DataSource = Enum.GetValues(typeof(BrowserEvent));
         }

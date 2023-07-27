@@ -29,15 +29,13 @@ namespace AutoBrowser
             Cef.Initialize(cefSettings);
 
             InitializeComponent();
-            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.LastAddress))
-            {
-                this.chromiumWebBrowser.Load("https://www.google.com");
-            }
-            else
-            {
-                this.chromiumWebBrowser.Load(Properties.Settings.Default.LastAddress);
-            }
+            this.Icon = Properties.Resources.lamyLogo;
+            this.chromiumWebBrowser.Load("http://lamysolution.com/");
+            //if (string.IsNullOrWhiteSpace(Properties.Settings.Default.LastAddress)) { }
+            //else { this.chromiumWebBrowser.Load(Properties.Settings.Default.LastAddress); }
             this.chromiumWebBrowser.LoadHandler = new LoadHandler(this);
+            this.chromiumWebBrowser.LifeSpanHandler = new LifeSpanHandler();
+
             bindings = new BindingList<WorkEvent>(WorkManager.WorkEvents);
             this.dataGridViewEvents.DataSource = bindings;
             this.dataGridViewEvents.Columns[0].ReadOnly = true;
@@ -47,13 +45,19 @@ namespace AutoBrowser
         private async void ToolStripMenuItemWorkDo_Click(object sender, EventArgs e)
         {
             this.menuStrip1.Enabled = false;
-            WorkEvent current = null;
+            int? idx = null;
             try
             {
                 var sb = new StringBuilder();
                 foreach (WorkEvent item in WorkManager.WorkEvents)
                 {
-                    current = item;
+                    idx = WorkManager.WorkEvents.IndexOf(item);
+
+                    await Task.Factory.StartNew(() =>
+                    {
+                        while (this.chromiumWebBrowser.IsLoading) Thread.Sleep(100);
+                    });
+
                     LoadUrlAsyncResponse response = null;
                     switch (item.EventType)
                     {
@@ -110,14 +114,13 @@ namespace AutoBrowser
                         if (dialogResult == DialogResult.OK)
                         {
                             System.IO.File.WriteAllText(save.FileName, scrapTexts);
-                            //Clipboard.SetText(scrapTexts);
                         }
                     }
                 }
             }
             catch (Exception exception)
             {
-                MessageBox.Show($"잘못된 동작을 설정입니다.\n{exception.Message}\n{current?.ToString()}");
+                MessageBox.Show($"{idx + 1} 번째 잘못된 동작을 설정입니다.\n{exception.Message}");
             }
             finally
             {
@@ -196,6 +199,38 @@ namespace AutoBrowser
             }
         }
 
+        public class LifeSpanHandler : ILifeSpanHandler
+        {
+            public bool DoClose(IWebBrowser chromiumWebBrowser, IBrowser browser)
+            {
+                return true;
+            }
+
+            public void OnAfterCreated(IWebBrowser chromiumWebBrowser, IBrowser browser) { }
+
+            public void OnBeforeClose(IWebBrowser chromiumWebBrowser, IBrowser browser) { }
+
+            public bool OnBeforePopup(IWebBrowser chromiumWebBrowser,
+                                      IBrowser browser,
+                                      IFrame frame,
+                                      string targetUrl,
+                                      string targetFrameName,
+                                      WindowOpenDisposition targetDisposition,
+                                      bool userGesture,
+                                      IPopupFeatures popupFeatures,
+                                      IWindowInfo windowInfo,
+                                      IBrowserSettings browserSettings,
+                                      ref bool noJavascriptAccess,
+                                      out IWebBrowser newBrowser)
+            {
+                newBrowser = null;
+                if (popupFeatures.IsPopup == false)
+                {
+                    chromiumWebBrowser.Load(targetUrl);
+                }
+                return true;
+            }
+        }
 
         private void textBoxUrl_KeyDown(object sender, KeyEventArgs e)
         {
