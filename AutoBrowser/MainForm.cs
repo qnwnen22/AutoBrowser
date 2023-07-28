@@ -74,7 +74,7 @@ namespace AutoBrowser
                             break;
 
                         case BrowserEvent.Get:
-
+                            item.Value = item.Value.Trim();
                             List<string> split = item.Path.Split("\n");
                             foreach (var address in split)
                             {
