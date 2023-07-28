@@ -34,7 +34,7 @@ namespace AutoBrowser
             //if (string.IsNullOrWhiteSpace(Properties.Settings.Default.LastAddress)) { }
             //else { this.chromiumWebBrowser.Load(Properties.Settings.Default.LastAddress); }
             this.chromiumWebBrowser.LoadHandler = new LoadHandler(this);
-            this.chromiumWebBrowser.LifeSpanHandler = new LifeSpanHandler();
+            //this.chromiumWebBrowser.LifeSpanHandler = new LifeSpanHandler();
 
             bindings = new BindingList<WorkEvent>(WorkManager.WorkEvents);
             this.dataGridViewEvents.DataSource = bindings;

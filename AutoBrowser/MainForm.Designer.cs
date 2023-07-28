@@ -61,7 +61,6 @@ namespace AutoBrowser
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemWorkAdd,
@@ -71,42 +70,43 @@ namespace AutoBrowser
             this.ToolStripMenuItemSetting});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1434, 36);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this.menuStrip1.Size = new System.Drawing.Size(1004, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // ToolStripMenuItemWorkAdd
             // 
             this.ToolStripMenuItemWorkAdd.Name = "ToolStripMenuItemWorkAdd";
-            this.ToolStripMenuItemWorkAdd.Size = new System.Drawing.Size(100, 30);
+            this.ToolStripMenuItemWorkAdd.Size = new System.Drawing.Size(67, 22);
             this.ToolStripMenuItemWorkAdd.Text = "동작추가";
             this.ToolStripMenuItemWorkAdd.Click += new System.EventHandler(this.ToolStripMenuItemWorkAdd_Click);
             // 
             // ToolStripMenuItemWorkDo
             // 
             this.ToolStripMenuItemWorkDo.Name = "ToolStripMenuItemWorkDo";
-            this.ToolStripMenuItemWorkDo.Size = new System.Drawing.Size(100, 30);
+            this.ToolStripMenuItemWorkDo.Size = new System.Drawing.Size(67, 22);
             this.ToolStripMenuItemWorkDo.Text = "동작실행";
             this.ToolStripMenuItemWorkDo.Click += new System.EventHandler(this.ToolStripMenuItemWorkDo_Click);
             // 
             // ToolStripMenuItemWorkSave
             // 
             this.ToolStripMenuItemWorkSave.Name = "ToolStripMenuItemWorkSave";
-            this.ToolStripMenuItemWorkSave.Size = new System.Drawing.Size(100, 30);
+            this.ToolStripMenuItemWorkSave.Size = new System.Drawing.Size(67, 22);
             this.ToolStripMenuItemWorkSave.Text = "동작저장";
             this.ToolStripMenuItemWorkSave.Click += new System.EventHandler(this.ToolStripMenuItemWorkSave_Click);
             // 
             // ToolStripMenuItemWorkLoad
             // 
             this.ToolStripMenuItemWorkLoad.Name = "ToolStripMenuItemWorkLoad";
-            this.ToolStripMenuItemWorkLoad.Size = new System.Drawing.Size(142, 30);
+            this.ToolStripMenuItemWorkLoad.Size = new System.Drawing.Size(95, 22);
             this.ToolStripMenuItemWorkLoad.Text = "동작 불러오기";
             this.ToolStripMenuItemWorkLoad.Click += new System.EventHandler(this.ToolStripMenuItemWorkLoad_Click);
             // 
             // ToolStripMenuItemSetting
             // 
             this.ToolStripMenuItemSetting.Name = "ToolStripMenuItemSetting";
-            this.ToolStripMenuItemSetting.Size = new System.Drawing.Size(64, 30);
+            this.ToolStripMenuItemSetting.Size = new System.Drawing.Size(43, 22);
             this.ToolStripMenuItemSetting.Text = "설정";
             // 
             // panel1
@@ -117,29 +117,26 @@ namespace AutoBrowser
             this.panel1.Controls.Add(this.buttonReload);
             this.panel1.Controls.Add(this.buttonForward);
             this.panel1.Controls.Add(this.buttonBack);
-            this.panel1.Location = new System.Drawing.Point(0, 36);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1434, 34);
+            this.panel1.Size = new System.Drawing.Size(1004, 23);
             this.panel1.TabIndex = 0;
             // 
             // textBoxUrl
             // 
             this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUrl.Location = new System.Drawing.Point(287, 2);
-            this.textBoxUrl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxUrl.Location = new System.Drawing.Point(201, 1);
             this.textBoxUrl.Name = "textBoxUrl";
-            this.textBoxUrl.Size = new System.Drawing.Size(1141, 28);
+            this.textBoxUrl.Size = new System.Drawing.Size(800, 21);
             this.textBoxUrl.TabIndex = 3;
             this.textBoxUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUrl_KeyDown);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(189, 0);
-            this.buttonReload.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonReload.Location = new System.Drawing.Point(132, 0);
             this.buttonReload.Name = "buttonReload";
-            this.buttonReload.Size = new System.Drawing.Size(96, 34);
+            this.buttonReload.Size = new System.Drawing.Size(67, 23);
             this.buttonReload.TabIndex = 2;
             this.buttonReload.Text = "새로고침";
             this.buttonReload.UseVisualStyleBackColor = true;
@@ -147,10 +144,9 @@ namespace AutoBrowser
             // 
             // buttonForward
             // 
-            this.buttonForward.Location = new System.Drawing.Point(94, 0);
-            this.buttonForward.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonForward.Location = new System.Drawing.Point(66, 0);
             this.buttonForward.Name = "buttonForward";
-            this.buttonForward.Size = new System.Drawing.Size(96, 34);
+            this.buttonForward.Size = new System.Drawing.Size(67, 23);
             this.buttonForward.TabIndex = 1;
             this.buttonForward.Text = "앞으로";
             this.buttonForward.UseVisualStyleBackColor = true;
@@ -159,9 +155,8 @@ namespace AutoBrowser
             // buttonBack
             // 
             this.buttonBack.Location = new System.Drawing.Point(0, 0);
-            this.buttonBack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(96, 34);
+            this.buttonBack.Size = new System.Drawing.Size(67, 23);
             this.buttonBack.TabIndex = 0;
             this.buttonBack.Text = "뒤로";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -172,10 +167,9 @@ namespace AutoBrowser
             this.MainPanel.AccessibleRole = System.Windows.Forms.AccessibleRole.SplitButton;
             this.MainPanel.Controls.Add(this.panel2);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPanel.Location = new System.Drawing.Point(0, 36);
-            this.MainPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MainPanel.Location = new System.Drawing.Point(0, 24);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(1434, 806);
+            this.MainPanel.Size = new System.Drawing.Size(1004, 537);
             this.MainPanel.TabIndex = 1;
             // 
             // panel2
@@ -184,17 +178,15 @@ namespace AutoBrowser
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.splitContainer1);
-            this.panel2.Location = new System.Drawing.Point(0, 42);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Location = new System.Drawing.Point(0, 28);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1434, 765);
+            this.panel2.Size = new System.Drawing.Size(1004, 510);
             this.panel2.TabIndex = 0;
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -204,9 +196,8 @@ namespace AutoBrowser
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridViewEvents);
-            this.splitContainer1.Size = new System.Drawing.Size(1434, 765);
-            this.splitContainer1.SplitterDistance = 1045;
-            this.splitContainer1.SplitterWidth = 6;
+            this.splitContainer1.Size = new System.Drawing.Size(1004, 510);
+            this.splitContainer1.SplitterDistance = 664;
             this.splitContainer1.TabIndex = 0;
             // 
             // chromiumWebBrowser
@@ -214,9 +205,8 @@ namespace AutoBrowser
             this.chromiumWebBrowser.ActivateBrowserOnCreation = false;
             this.chromiumWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chromiumWebBrowser.Location = new System.Drawing.Point(0, 0);
-            this.chromiumWebBrowser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chromiumWebBrowser.Name = "chromiumWebBrowser";
-            this.chromiumWebBrowser.Size = new System.Drawing.Size(1045, 765);
+            this.chromiumWebBrowser.Size = new System.Drawing.Size(664, 510);
             this.chromiumWebBrowser.TabIndex = 0;
             // 
             // dataGridViewEvents
@@ -226,11 +216,10 @@ namespace AutoBrowser
             this.dataGridViewEvents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEvents.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewEvents.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewEvents.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewEvents.Name = "dataGridViewEvents";
             this.dataGridViewEvents.RowHeadersWidth = 62;
             this.dataGridViewEvents.RowTemplate.Height = 23;
-            this.dataGridViewEvents.Size = new System.Drawing.Size(383, 765);
+            this.dataGridViewEvents.Size = new System.Drawing.Size(336, 510);
             this.dataGridViewEvents.TabIndex = 0;
             this.dataGridViewEvents.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEvents_CellEndEdit);
             // 
@@ -242,15 +231,14 @@ namespace AutoBrowser
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1434, 842);
+            this.ClientSize = new System.Drawing.Size(1004, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainWindow";
