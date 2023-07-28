@@ -26,6 +26,30 @@ namespace AutoBrowser.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SavedDirectory {
+            get {
+                return ((string)(this["SavedDirectory"]));
+            }
+            set {
+                this["SavedDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsSaveAddress {
+            get {
+                return ((bool)(this["IsSaveAddress"]));
+            }
+            set {
+                this["IsSaveAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://lamysolution.com/")]
         public string LastAddress {
             get {
                 return ((string)(this["LastAddress"]));
@@ -37,13 +61,13 @@ namespace AutoBrowser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SavedDirectory {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsSavedDirectory {
             get {
-                return ((string)(this["SavedDirectory"]));
+                return ((bool)(this["IsSavedDirectory"]));
             }
             set {
-                this["SavedDirectory"] = value;
+                this["IsSavedDirectory"] = value;
             }
         }
     }

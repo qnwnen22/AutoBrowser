@@ -24,13 +24,10 @@ namespace AutoBrowser
         }
 
 
-        MainForm worksForm;
-        private InputForm(MainForm worksForm)
+        MainForm mainForm;
+        private InputForm(MainForm mainForm)
         {
-            this.worksForm = worksForm;
-            //Point location = worksForm.Location;
-            //location.Offset(this.worksForm.Width, 0);
-            //this.Location = location;
+            this.mainForm = mainForm;
             InitializeComponent();
             this.comboBoxEvent.DataSource = Enum.GetValues(typeof(BrowserEvent));
         }
@@ -107,11 +104,9 @@ namespace AutoBrowser
 
                 var workEvent = new WorkEvent(_event, textBoxPath.Text, textBoxValue.Text);
                 WorkManager.WorkEvents.Add(workEvent);
-                //MessageBox.Show("동작이 추가 되었습니다.");
-                //this.comboBoxEvent.SelectedIndex = 0;
                 this.textBoxPath.Text = "";
                 this.textBoxValue.Text = "";
-                worksForm.DataReload();
+                mainForm.DataReload();
             }
             catch (Exception exception)
             {

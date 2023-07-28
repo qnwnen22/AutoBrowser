@@ -1,4 +1,5 @@
-﻿using CefSharp;
+﻿using AutoBrowser.Handler;
+using CefSharp;
 using CefSharp.WinForms;
 using System;
 using System.Collections.Generic;
@@ -24,13 +25,17 @@ namespace AutoBrowser
 
             InitializeComponent();
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            
             this.Text += $" {version}";
             this.Icon = Properties.Resources.lamyLogo;
-            this.chromiumWebBrowser.Load("http://lamysolution.com/");
-            //if (string.IsNullOrWhiteSpace(Properties.Settings.Default.LastAddress)) { }
-            //else { this.chromiumWebBrowser.Load(Properties.Settings.Default.LastAddress); }
-            this.chromiumWebBrowser.LoadHandler = new LoadHandler(this);
-            //this.chromiumWebBrowser.LifeSpanHandler = new LifeSpanHandler();
+            
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.LastAddress))
+                BrowserLoad("http://lamysolution.com/");
+            else
+                BrowserLoad(Properties.Settings.Default.LastAddress);
+            
+            this.chromiumWebBrowser.LoadHandler = new MainLoadHandler(this);
+            this.chromiumWebBrowser.LifeSpanHandler = new LifeSpanHandler();
             bindings = new BindingList<WorkEvent>(WorkManager.WorkEvents);
             this.dataGridViewEvents.DataSource = bindings;
             this.dataGridViewEvents.Columns[0].ReadOnly = true;
@@ -131,6 +136,12 @@ namespace AutoBrowser
         private void dataGridViewEvents_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             DataReload();
+        }
+
+        private void ToolStripMenuItemSetting_Click(object sender, EventArgs e)
+        {
+            var setting = new SettingForm();
+            setting.ShowDialog();
         }
     }
 }

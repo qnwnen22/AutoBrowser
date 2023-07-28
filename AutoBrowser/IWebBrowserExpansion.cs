@@ -37,9 +37,6 @@ namespace AutoBrowser
             double key = double.Parse(first);
             string last = split.Last();
             double value = double.Parse(last);
-
-            //await getMainFrame.EvaluateScriptAsync($"window.scrollTo(0,100)");
-
             var keyValuePair = new KeyValuePair<double, double>(key, value);
             return keyValuePair;
         }

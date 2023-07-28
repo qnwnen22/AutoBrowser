@@ -5,21 +5,26 @@ namespace AutoBrowser
 {
     public partial class MainForm
     {
+        void BrowserLoad(string url)
+        {
+            string address = null;
+            try
+            {
+                Uri uri = new Uri(url);
+                address = url;
+            }
+            catch
+            {
+                address = $"https://www.google.com/search?q={url}";
+            }
+            this.chromiumWebBrowser.Load(address);
+        }
+
         private void textBoxUrl_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                string address = null;
-                try
-                {
-                    Uri uri = new Uri(this.textBoxUrl.Text);
-                    address = this.textBoxUrl.Text;
-                }
-                catch
-                {
-                    address = $"https://www.google.com/search?q={this.textBoxUrl.Text}";
-                }
-                this.chromiumWebBrowser.Load(address);
+                BrowserLoad(this.textBoxUrl.Text);
             }
         }
     }

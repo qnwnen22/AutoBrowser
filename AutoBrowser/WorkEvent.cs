@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutoBrowser
+﻿namespace AutoBrowser
 {
     public class WorkEvent
     {
@@ -13,11 +6,8 @@ namespace AutoBrowser
         public string Path { get; set; }
         public string Value { get; set; }
 
-        public WorkEvent()
-        {
+        public WorkEvent() { }
 
-        }
-        
         public WorkEvent(BrowserEvent browserEvent)
         {
             EventType = browserEvent;

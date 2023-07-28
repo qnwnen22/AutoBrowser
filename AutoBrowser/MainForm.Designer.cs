@@ -59,7 +59,7 @@ namespace AutoBrowser
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEvents)).BeginInit();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // MenuStrip1
             // 
             this.MenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.MenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -69,7 +69,7 @@ namespace AutoBrowser
             this.ToolStripMenuItemWorkLoad,
             this.ToolStripMenuItemSetting});
             this.MenuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.MenuStrip1.Name = "menuStrip1";
+            this.MenuStrip1.Name = "MenuStrip1";
             this.MenuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
             this.MenuStrip1.Size = new System.Drawing.Size(1004, 24);
             this.MenuStrip1.TabIndex = 0;
@@ -106,8 +106,9 @@ namespace AutoBrowser
             // ToolStripMenuItemSetting
             // 
             this.ToolStripMenuItemSetting.Name = "ToolStripMenuItemSetting";
-            this.ToolStripMenuItemSetting.Size = new System.Drawing.Size(43, 22);
-            this.ToolStripMenuItemSetting.Text = "설정";
+            this.ToolStripMenuItemSetting.Size = new System.Drawing.Size(67, 22);
+            this.ToolStripMenuItemSetting.Text = "환경설정";
+            this.ToolStripMenuItemSetting.Click += new System.EventHandler(this.ToolStripMenuItemSetting_Click);
             // 
             // panel1
             // 
