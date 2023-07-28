@@ -31,7 +31,7 @@ namespace AutoBrowser
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripMenuItemWorkAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWorkDo = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWorkSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +48,7 @@ namespace AutoBrowser
             this.chromiumWebBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.dataGridViewEvents = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuStrip1.SuspendLayout();
+            this.MenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.MainPanel.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -61,19 +61,19 @@ namespace AutoBrowser
             // 
             // menuStrip1
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.MenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemWorkAdd,
             this.ToolStripMenuItemWorkDo,
             this.ToolStripMenuItemWorkSave,
             this.ToolStripMenuItemWorkLoad,
             this.ToolStripMenuItemSetting});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(1004, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.MenuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.MenuStrip1.Name = "menuStrip1";
+            this.MenuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this.MenuStrip1.Size = new System.Drawing.Size(1004, 24);
+            this.MenuStrip1.TabIndex = 0;
+            this.MenuStrip1.Text = "menuStrip1";
             // 
             // ToolStripMenuItemWorkAdd
             // 
@@ -236,14 +236,14 @@ namespace AutoBrowser
             this.ClientSize = new System.Drawing.Size(1004, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MainPanel);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.MenuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.MenuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainWindow";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.MenuStrip1.ResumeLayout(false);
+            this.MenuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.MainPanel.ResumeLayout(false);
@@ -260,7 +260,7 @@ namespace AutoBrowser
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip MenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemWorkAdd;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonBack;

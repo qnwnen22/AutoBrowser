@@ -76,5 +76,16 @@ namespace AutoBrowser
             });
             await run;
         }
+
+        public static async Task WaitLoadingAsync(this IWebBrowser webBrowser)
+        {
+            await Task.Run(() =>
+            {
+                while (webBrowser.IsLoading)
+                {
+                    Thread.Sleep(100);
+                }
+            });
+        }
     }
 }
