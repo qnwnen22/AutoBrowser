@@ -17,6 +17,7 @@ namespace AutoBrowser
         public SettingForm()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.lamyLogo;
             SettingsPropertyCollection properties = Properties.Settings.Default.Properties;
             foreach (SettingsProperty property in properties)
             {

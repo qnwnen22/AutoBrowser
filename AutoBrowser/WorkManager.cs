@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AutoBrowser
 {
@@ -18,6 +19,14 @@ namespace AutoBrowser
             {
                 workEvents = value;
             }
+        }
+
+        public static string ToJson()
+        {
+            if (WorkEvents.Count <= 0)
+                return null;
+
+            return WorkEvents.ToJson();
         }
     }
 }

@@ -30,7 +30,6 @@ namespace AutoBrowser
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripMenuItemWorkAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWorkDo = new System.Windows.Forms.ToolStripMenuItem();
@@ -248,7 +247,6 @@ namespace AutoBrowser
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.MenuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

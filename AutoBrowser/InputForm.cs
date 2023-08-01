@@ -29,6 +29,7 @@ namespace AutoBrowser
         {
             this.mainForm = mainForm;
             InitializeComponent();
+            this.Icon = Properties.Resources.lamyLogo;
             this.comboBoxEvent.DataSource = Enum.GetValues(typeof(BrowserEvent));
         }
 

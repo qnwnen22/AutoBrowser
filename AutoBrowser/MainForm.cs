@@ -14,7 +14,7 @@ namespace AutoBrowser
         BindingList<WorkEvent> bindings;
         readonly string TxtFileFilter = "텍스트파일(*.txt)|*.txt";
         readonly string JsonFileFilter = "Json파일(*.json)|*.json";
-        
+
         public MainForm()
         {
             var cefSettings = new CefSettings
@@ -23,8 +23,9 @@ namespace AutoBrowser
                 LogSeverity = LogSeverity.Disable,
             };
             Cef.Initialize(cefSettings);
-            
+
             InitializeComponent();
+            this.Icon = Properties.Resources.lamyLogo;
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             this.Text += $" {version}";
@@ -155,6 +156,14 @@ namespace AutoBrowser
         private void devToolsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.chromiumWebBrowser.ShowDevTools();
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if ((Keys.F12) == keyData)
+            {
+                this.chromiumWebBrowser.ShowDevTools();
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

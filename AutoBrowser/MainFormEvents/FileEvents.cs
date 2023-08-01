@@ -33,7 +33,7 @@ namespace AutoBrowser
             }
             return isSave;
         }
-        
+
         private void ToolStripMenuItemWorkLoad_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -56,16 +56,15 @@ namespace AutoBrowser
             }
         }
 
-        private void ToolStripMenuItemWorkSave_Click(object sender, EventArgs e)
+        void SaveWorks()
         {
-            if (WorkManager.WorkEvents.Count <= 0)
+            string json = WorkManager.ToJson();
+            if (string.IsNullOrWhiteSpace(json))
             {
                 MessageBox.Show("저장할 동작이 없습니다");
             }
             else
             {
-                string json = WorkManager.WorkEvents.ToJson();
-
                 var isSave = SaveFile(json, JsonFileFilter);
                 if (isSave)
                 {
@@ -73,6 +72,9 @@ namespace AutoBrowser
                 }
             }
         }
+
+
+        private void ToolStripMenuItemWorkSave_Click(object sender, EventArgs e) => SaveWorks();
 
 
         public void SetClipboardText(string text)
