@@ -30,6 +30,8 @@ namespace AutoBrowser
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.LastAddress = new System.Windows.Forms.TextBox();
             this.IsSaveAddress = new System.Windows.Forms.CheckBox();
             this.buttonReLoad = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -38,8 +40,7 @@ namespace AutoBrowser
             this.SavedDirectory = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.LastAddress = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.UseClipboard = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +56,22 @@ namespace AutoBrowser
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "브라우저 설정";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(5, 45);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 12);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "시작 주소";
+            // 
+            // LastAddress
+            // 
+            this.LastAddress.Location = new System.Drawing.Point(69, 42);
+            this.LastAddress.Name = "LastAddress";
+            this.LastAddress.Size = new System.Drawing.Size(396, 21);
+            this.LastAddress.TabIndex = 7;
             // 
             // IsSaveAddress
             // 
@@ -116,6 +133,7 @@ namespace AutoBrowser
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.UseClipboard);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.IsSavedDirectory);
             this.groupBox2.Controls.Add(this.SavedDirectory);
@@ -135,21 +153,15 @@ namespace AutoBrowser
             this.label1.TabIndex = 6;
             this.label1.Text = "현재 경로";
             // 
-            // LastAddress
+            // UseClipboard
             // 
-            this.LastAddress.Location = new System.Drawing.Point(69, 42);
-            this.LastAddress.Name = "LastAddress";
-            this.LastAddress.Size = new System.Drawing.Size(396, 21);
-            this.LastAddress.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 45);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 12);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "시작 주소";
+            this.UseClipboard.AutoSize = true;
+            this.UseClipboard.Location = new System.Drawing.Point(6, 79);
+            this.UseClipboard.Name = "UseClipboard";
+            this.UseClipboard.Size = new System.Drawing.Size(136, 16);
+            this.UseClipboard.TabIndex = 7;
+            this.UseClipboard.Text = "클립보드로 저장하기";
+            this.UseClipboard.UseVisualStyleBackColor = true;
             // 
             // SettingForm
             // 
@@ -189,5 +201,6 @@ namespace AutoBrowser
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox LastAddress;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox UseClipboard;
     }
 }

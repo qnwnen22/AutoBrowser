@@ -14,6 +14,7 @@ namespace AutoBrowser
         BindingList<WorkEvent> bindings;
         readonly string TxtFileFilter = "텍스트파일(*.txt)|*.txt";
         readonly string JsonFileFilter = "Json파일(*.json)|*.json";
+        
         public MainForm()
         {
             var cefSettings = new CefSettings
@@ -22,18 +23,18 @@ namespace AutoBrowser
                 LogSeverity = LogSeverity.Disable,
             };
             Cef.Initialize(cefSettings);
-
+            
             InitializeComponent();
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            
+
             this.Text += $" {version}";
             this.Icon = Properties.Resources.lamyLogo;
-            
+
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.LastAddress))
                 BrowserLoad("http://lamysolution.com/");
             else
                 BrowserLoad(Properties.Settings.Default.LastAddress);
-            
+
             this.chromiumWebBrowser.LoadHandler = new MainLoadHandler(this);
             this.chromiumWebBrowser.LifeSpanHandler = new LifeSpanHandler();
             bindings = new BindingList<WorkEvent>(WorkManager.WorkEvents);
@@ -116,7 +117,14 @@ namespace AutoBrowser
                     var result = MessageBox.Show("수집한 내용을 저장시겠습니까?", "AutoBrowser", MessageBoxButtons.OKCancel);
                     if (result == DialogResult.OK)
                     {
-                        SaveFile(scrapTexts, TxtFileFilter);
+                        if (Properties.Settings.Default.UseClipboard)
+                        {
+                            SetClipboardText(scrapTexts);
+                        }
+                        else
+                        {
+                            SaveFile(scrapTexts, TxtFileFilter);
+                        }
                     }
                 }
             }
@@ -142,6 +150,11 @@ namespace AutoBrowser
         {
             var setting = new SettingForm();
             setting.ShowDialog();
+        }
+
+        private void devToolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.chromiumWebBrowser.ShowDevTools();
         }
     }
 }

@@ -70,5 +70,17 @@ namespace AutoBrowser.Properties {
                 this["IsSavedDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseClipboard {
+            get {
+                return ((bool)(this["UseClipboard"]));
+            }
+            set {
+                this["UseClipboard"] = value;
+            }
+        }
     }
 }

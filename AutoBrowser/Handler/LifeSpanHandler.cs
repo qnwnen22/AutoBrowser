@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
+using System;
 
 namespace AutoBrowser.Handler
 {
@@ -7,8 +8,6 @@ namespace AutoBrowser.Handler
     {
         public virtual bool DoClose(IWebBrowser chromiumWebBrowser, IBrowser browser)
         {
-            chromiumWebBrowser.Dispose();
-            browser.Dispose();
             return false;
         }
         public virtual void OnAfterCreated(IWebBrowser chromiumWebBrowser, IBrowser browser) { }

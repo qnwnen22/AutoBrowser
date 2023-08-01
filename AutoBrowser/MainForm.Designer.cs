@@ -37,6 +37,7 @@ namespace AutoBrowser
             this.ToolStripMenuItemWorkSave = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemWorkLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemSetting = new System.Windows.Forms.ToolStripMenuItem();
+            this.devToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBoxUrl = new System.Windows.Forms.TextBox();
             this.buttonReload = new System.Windows.Forms.Button();
@@ -67,7 +68,8 @@ namespace AutoBrowser
             this.ToolStripMenuItemWorkDo,
             this.ToolStripMenuItemWorkSave,
             this.ToolStripMenuItemWorkLoad,
-            this.ToolStripMenuItemSetting});
+            this.ToolStripMenuItemSetting,
+            this.devToolsToolStripMenuItem});
             this.MenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip1.Name = "MenuStrip1";
             this.MenuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
@@ -109,6 +111,14 @@ namespace AutoBrowser
             this.ToolStripMenuItemSetting.Size = new System.Drawing.Size(67, 22);
             this.ToolStripMenuItemSetting.Text = "환경설정";
             this.ToolStripMenuItemSetting.Click += new System.EventHandler(this.ToolStripMenuItemSetting_Click);
+            // 
+            // devToolsToolStripMenuItem
+            // 
+            this.devToolsToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.devToolsToolStripMenuItem.Name = "devToolsToolStripMenuItem";
+            this.devToolsToolStripMenuItem.Size = new System.Drawing.Size(79, 22);
+            this.devToolsToolStripMenuItem.Text = "개발자도구";
+            this.devToolsToolStripMenuItem.Click += new System.EventHandler(this.devToolsToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -278,6 +288,7 @@ namespace AutoBrowser
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemWorkSave;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemWorkLoad;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem devToolsToolStripMenuItem;
     }
 }
 

@@ -73,5 +73,12 @@ namespace AutoBrowser
                 }
             }
         }
+
+
+        public void SetClipboardText(string text)
+        {
+            Clipboard.SetText(text);
+            MessageBox.Show("클립보드에 복사되었습니다.");
+        }
     }
 }
