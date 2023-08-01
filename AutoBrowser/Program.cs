@@ -14,6 +14,9 @@ namespace AutoBrowser
         [STAThread]
         static void Main()
         {
+#if RELEASE
+            Properties.Settings.Default.Reset();
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
