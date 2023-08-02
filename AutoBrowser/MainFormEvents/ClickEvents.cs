@@ -6,10 +6,6 @@ namespace AutoBrowser
 {
     public partial class MainForm
     {
-        private void ToolStripMenuItemWorkAdd_Click(object sender, EventArgs e)
-        {
-            InputForm.Show(this);
-        }
         private void buttonBack_Click(object sender, EventArgs e)
         {
             this.chromiumWebBrowser.Back();

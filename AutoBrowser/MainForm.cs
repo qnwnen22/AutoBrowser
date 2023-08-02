@@ -39,38 +39,41 @@ namespace AutoBrowser
 
             this.chromiumWebBrowser.LoadHandler = new MainLoadHandler(this);
             this.chromiumWebBrowser.LifeSpanHandler = new LifeSpanHandler();
+            this.chromiumWebBrowser.MenuHandler = new ContextMenuHandler();
             bindings = new BindingList<WorkEvent>(WorkManager.WorkEvents);
             this.dataGridViewEvents.DataSource = bindings;
             this.dataGridViewEvents.Columns[0].ReadOnly = true;
-
             this.comboBoxEvent.DataSource = Enum.GetValues(typeof(BrowserEvent));
 
         }
 
         private void comboBoxEvent_SelectedValueChanged(object sender, EventArgs e)
         {
-
             ComboBox combox = sender as ComboBox;
-            int select = combox.SelectedIndex;
-            switch (select)
+            var select = combox.SelectedItem.ToString();
+            BrowserEvent browserEvent = (BrowserEvent)Enum.Parse(typeof(BrowserEvent), select);
+
+            switch (browserEvent)
             {
-                case 0:
+                case BrowserEvent.Click:
+                case BrowserEvent.Load:
+                case BrowserEvent.Text:
+                case BrowserEvent.Image:
+                case BrowserEvent.Link:
                     this.textBoxPath.Enabled = true;
                     this.textBoxValue.Enabled = false;
                     break;
-                case 2:
+                case BrowserEvent.Input:
+                    this.textBoxPath.Enabled = true;
+                    this.textBoxValue.Enabled = true;
+                    break;
+                case BrowserEvent.Wait:
                     this.textBoxPath.Enabled = false;
                     this.textBoxValue.Enabled = true;
                     break;
-                case 3:
-                    this.textBoxPath.Enabled = true;
-                    this.textBoxValue.Enabled = false;
-                    break;
-                case 1:
-                case 4:
                 default:
-                    this.textBoxPath.Enabled = true;
-                    this.textBoxValue.Enabled = true;
+                    this.textBoxPath.Enabled = false;
+                    this.textBoxValue.Enabled = false;
                     break;
             }
             this.textBoxPath.Text = "";
@@ -91,7 +94,7 @@ namespace AutoBrowser
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonWorkAdd_Click(object sender, EventArgs e)
         {
             try
             {
@@ -100,6 +103,10 @@ namespace AutoBrowser
                 switch (_event)
                 {
                     case BrowserEvent.Click:
+                    case BrowserEvent.Load:
+                    case BrowserEvent.Text:
+                    case BrowserEvent.Image:
+                    case BrowserEvent.Link:
                         if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
                         break;
                     case BrowserEvent.Input:
@@ -109,10 +116,7 @@ namespace AutoBrowser
                     case BrowserEvent.Wait:
                         if (string.IsNullOrWhiteSpace(textBoxValue.Text)) throw new Exception("입력 값이 필요합니다");
                         break;
-                    case BrowserEvent.Load:
-                    case BrowserEvent.Get:
-                        if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
-                        break;
+
                     default:
                         break;
                 }
@@ -131,7 +135,7 @@ namespace AutoBrowser
 
 
 
-        private async void ToolStripMenuItemWorkDo_Click(object sender, EventArgs e)
+        private async void buttonWorkDo_Click(object sender, EventArgs e)
         {
             this.MenuStrip1.Enabled = false;
             int? idx = null;
@@ -141,9 +145,9 @@ namespace AutoBrowser
                 foreach (WorkEvent item in WorkManager.WorkEvents)
                 {
                     idx = WorkManager.WorkEvents.IndexOf(item);
+                    string html = null;
                     await this.chromiumWebBrowser.WaitLoadingAsync();
 
-                    LoadUrlAsyncResponse response = null;
                     switch (item.EventType)
                     {
                         case BrowserEvent.Click:
@@ -163,34 +167,48 @@ namespace AutoBrowser
                             await this.chromiumWebBrowser.LoadUrlAsync(item.Path);
                             break;
 
-                        case BrowserEvent.Get:
-                            if (string.IsNullOrWhiteSpace(item.Value))
+                        case BrowserEvent.Text:
+                            if (string.IsNullOrWhiteSpace(item.Path))
                             {
                                 throw new Exception("값은 비어있을 수 없습니다.");
                             }
-                            item.Value = item.Value.Trim();
-                            List<string> split = item.Path.Split("\n");
-                            foreach (var address in split)
+                            item.Path = item.Path.Trim();
+                            html = await this.chromiumWebBrowser.GetSourceAsync();
+                            List<string> values = item.Path.Split("\n");
+                            for (int i = 0; i < values.Count; i++)
                             {
-                                if (string.IsNullOrWhiteSpace(address)) continue;
-                                response = await this.chromiumWebBrowser.LoadUrlAsync(address.Trim());
-
-                                string html = await this.chromiumWebBrowser.GetSourceAsync();
-                                List<string> values = item.Value.Split("\n");
-                                for (int i = 0; i < values.Count; i++)
+                                string value = values[i];
+                                if (string.IsNullOrWhiteSpace(value)) continue;
+                                if (i != 0)
                                 {
-                                    string value = values[i];
-                                    if (string.IsNullOrWhiteSpace(value)) continue;
-                                    if (i != 0)
-                                    {
-                                        sb.Append("\t");
-                                    }
-                                    string text = html.SelectNode(value, HtmlType.InnerText);
-                                    text = HttpUtility.HtmlDecode(text).Trim();
-                                    text = $"\"{text}\"";
-                                    sb.Append(text);
+                                    sb.Append("\t");
                                 }
-                                sb.Append("\n");
+                                string text = html.SelectNode(value, HtmlType.InnerText);
+                                if (string.IsNullOrWhiteSpace(text))
+                                {
+                                    text = "";
+                                }
+                                text = HttpUtility.HtmlDecode(text).Trim();
+                                text = $"\"{text}\"";
+                                sb.Append(text);
+                            }
+                            sb.Append("\n");
+                            break;
+
+                        case BrowserEvent.Image:
+                            html = await this.chromiumWebBrowser.GetSourceAsync();
+                            string src = html.SelectNode(item.Path, "src");
+                            sb.AppendLine(src);
+                            break;
+
+                        case BrowserEvent.Link:
+                            html = await this.chromiumWebBrowser.GetSourceAsync();
+                            string aTagXPath = $"{item.Path}//a";
+                            var hrefs = html.SelectNodes(aTagXPath, "href");
+                            if (hrefs == null) continue;
+                            foreach (var href in hrefs)
+                            {
+                                sb.AppendLine(href);
                             }
                             break;
                         default:

@@ -12,6 +12,8 @@ namespace AutoBrowser
         Input,
         Wait,
         Load,
-        Get,
+        Text,
+        Image,
+        Link
     }
 }

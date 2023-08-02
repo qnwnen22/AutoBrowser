@@ -47,6 +47,8 @@ namespace AutoBrowser
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridViewEvents = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.buttonWorkDo = new System.Windows.Forms.Button();
+            this.buttonWorkAdd = new System.Windows.Forms.Button();
             this.textBoxValue = new System.Windows.Forms.RichTextBox();
             this.textBoxPath = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -54,8 +56,6 @@ namespace AutoBrowser
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxEvent = new System.Windows.Forms.ComboBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonWorkAdd = new System.Windows.Forms.Button();
-            this.buttonWorkDo = new System.Windows.Forms.Button();
             this.MenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.MainPanel.SuspendLayout();
@@ -256,6 +256,30 @@ namespace AutoBrowser
             this.panel3.Size = new System.Drawing.Size(449, 212);
             this.panel3.TabIndex = 0;
             // 
+            // buttonWorkDo
+            // 
+            this.buttonWorkDo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonWorkDo.Location = new System.Drawing.Point(3, 181);
+            this.buttonWorkDo.Name = "buttonWorkDo";
+            this.buttonWorkDo.Size = new System.Drawing.Size(323, 23);
+            this.buttonWorkDo.TabIndex = 26;
+            this.buttonWorkDo.Text = "동작 실행";
+            this.buttonWorkDo.UseVisualStyleBackColor = true;
+            this.buttonWorkDo.Click += new System.EventHandler(this.buttonWorkDo_Click);
+            // 
+            // buttonWorkAdd
+            // 
+            this.buttonWorkAdd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonWorkAdd.Location = new System.Drawing.Point(3, 152);
+            this.buttonWorkAdd.Name = "buttonWorkAdd";
+            this.buttonWorkAdd.Size = new System.Drawing.Size(323, 23);
+            this.buttonWorkAdd.TabIndex = 25;
+            this.buttonWorkAdd.Text = "동작 추가";
+            this.buttonWorkAdd.UseVisualStyleBackColor = true;
+            this.buttonWorkAdd.Click += new System.EventHandler(this.buttonWorkAdd_Click);
+            // 
             // textBoxValue
             // 
             this.textBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -322,30 +346,6 @@ namespace AutoBrowser
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // buttonWorkAdd
-            // 
-            this.buttonWorkAdd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonWorkAdd.Location = new System.Drawing.Point(3, 152);
-            this.buttonWorkAdd.Name = "buttonWorkAdd";
-            this.buttonWorkAdd.Size = new System.Drawing.Size(323, 23);
-            this.buttonWorkAdd.TabIndex = 25;
-            this.buttonWorkAdd.Text = "동작 추가";
-            this.buttonWorkAdd.UseVisualStyleBackColor = true;
-            this.buttonWorkAdd.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // buttonWorkDo
-            // 
-            this.buttonWorkDo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonWorkDo.Location = new System.Drawing.Point(3, 181);
-            this.buttonWorkDo.Name = "buttonWorkDo";
-            this.buttonWorkDo.Size = new System.Drawing.Size(323, 23);
-            this.buttonWorkDo.TabIndex = 26;
-            this.buttonWorkDo.Text = "동작 실행";
-            this.buttonWorkDo.UseVisualStyleBackColor = true;
-            this.buttonWorkDo.Click += new System.EventHandler(this.ToolStripMenuItemWorkDo_Click);
             // 
             // MainForm
             // 
