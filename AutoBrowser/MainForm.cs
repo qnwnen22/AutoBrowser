@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Web;
 using System.Windows.Forms;
 
 namespace AutoBrowser
@@ -76,6 +77,10 @@ namespace AutoBrowser
                             break;
 
                         case BrowserEvent.Get:
+                            if (string.IsNullOrWhiteSpace(item.Value))
+                            {
+                                throw new Exception("값은 비어있을 수 없습니다.");
+                            }
                             item.Value = item.Value.Trim();
                             List<string> split = item.Path.Split("\n");
                             foreach (var address in split)
@@ -85,26 +90,20 @@ namespace AutoBrowser
 
                                 string html = await this.chromiumWebBrowser.GetSourceAsync();
                                 List<string> values = item.Value.Split("\n");
-                                if (values.Count <= 0)
+                                for (int i = 0; i < values.Count; i++)
                                 {
-                                    string text = html.SelectNode(item.Value, HtmlType.InnerText);
-                                    sb.AppendLine(text);
-                                }
-                                else
-                                {
-                                    for (int i = 0; i < values.Count; i++)
+                                    string value = values[i];
+                                    if (string.IsNullOrWhiteSpace(value)) continue;
+                                    if (i != 0)
                                     {
-                                        string value = values[i];
-                                        if (string.IsNullOrWhiteSpace(value)) continue;
-                                        if (i != 0)
-                                        {
-                                            sb.Append("\t");
-                                        }
-                                        string text = html.SelectNode(value, HtmlType.InnerText);
-                                        sb.Append(text);
+                                        sb.Append("\t");
                                     }
-                                    sb.Append("\n");
+                                    string text = html.SelectNode(value, HtmlType.InnerText);
+                                    text = HttpUtility.HtmlDecode(text).Trim();
+                                    text = $"\"{text}\"";
+                                    sb.Append(text);
                                 }
+                                sb.Append("\n");
                             }
                             break;
                         default:
