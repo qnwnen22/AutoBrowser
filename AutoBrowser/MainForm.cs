@@ -58,12 +58,11 @@ namespace AutoBrowser
                 case BrowserEvent.Click:
                 case BrowserEvent.Load:
                 case BrowserEvent.Text:
-                case BrowserEvent.Image:
-                case BrowserEvent.Link:
                     this.textBoxPath.Enabled = true;
                     this.textBoxValue.Enabled = false;
                     break;
                 case BrowserEvent.Input:
+                case BrowserEvent.Attribute:
                     this.textBoxPath.Enabled = true;
                     this.textBoxValue.Enabled = true;
                     break;
@@ -94,44 +93,7 @@ namespace AutoBrowser
             }
         }
 
-        private void buttonWorkAdd_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                BrowserEvent _event = (BrowserEvent)Enum.Parse(typeof(BrowserEvent), comboBoxEvent.SelectedIndex.ToString());
-
-                switch (_event)
-                {
-                    case BrowserEvent.Click:
-                    case BrowserEvent.Load:
-                    case BrowserEvent.Text:
-                    case BrowserEvent.Image:
-                    case BrowserEvent.Link:
-                        if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
-                        break;
-                    case BrowserEvent.Input:
-                        if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
-                        if (string.IsNullOrWhiteSpace(textBoxValue.Text)) throw new Exception("입력 값이 필요합니다");
-                        break;
-                    case BrowserEvent.Wait:
-                        if (string.IsNullOrWhiteSpace(textBoxValue.Text)) throw new Exception("입력 값이 필요합니다");
-                        break;
-
-                    default:
-                        break;
-                }
-
-                var workEvent = new WorkEvent(_event, textBoxPath.Text, textBoxValue.Text);
-                WorkManager.WorkEvents.Add(workEvent);
-                this.textBoxPath.Text = "";
-                this.textBoxValue.Text = "";
-                DataReload();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
-        }
+        
 
 
 
@@ -168,48 +130,50 @@ namespace AutoBrowser
                             break;
 
                         case BrowserEvent.Text:
-                            if (string.IsNullOrWhiteSpace(item.Path))
+
+                            var paths = item?.Path.Split("\n");
+                            if (paths == null) continue;
+                            var values = item?.Value.Split("\n");
+                            if (values == null) continue;
+
+                            foreach (var path in paths)
                             {
-                                throw new Exception("값은 비어있을 수 없습니다.");
-                            }
-                            item.Path = item.Path.Trim();
-                            html = await this.chromiumWebBrowser.GetSourceAsync();
-                            List<string> values = item.Path.Split("\n");
-                            for (int i = 0; i < values.Count; i++)
-                            {
-                                string value = values[i];
-                                if (string.IsNullOrWhiteSpace(value)) continue;
-                                if (i != 0)
+                                if (string.IsNullOrWhiteSpace(path))
                                 {
-                                    sb.Append("\t");
+                                    html = await this.chromiumWebBrowser.GetSourceAsync();
                                 }
-                                string text = html.SelectNode(value, HtmlType.InnerText);
-                                if (string.IsNullOrWhiteSpace(text))
+                                else
                                 {
-                                    text = "";
+                                    await this.chromiumWebBrowser.LoadUrlAsync(item.Path);
+                                    html = await this.chromiumWebBrowser.GetSourceAsync();
                                 }
-                                text = HttpUtility.HtmlDecode(text).Trim();
-                                text = $"\"{text}\"";
-                                sb.Append(text);
+
+                                foreach (var value in values)
+                                {
+                                    string text = html.SelectNode(value, HtmlType.InnerText);
+                                    if (string.IsNullOrWhiteSpace(text))
+                                    {
+                                        text = "";
+                                    }
+                                    else
+                                    {
+                                        text = HttpUtility.HtmlDecode(text).Trim();
+                                    }
+                                    text = $"\"{text}\"";
+                                    sb.Append(text);
+                                }
+                                sb.Append("\n");
                             }
-                            sb.Append("\n");
                             break;
 
-                        case BrowserEvent.Image:
+                        case BrowserEvent.Attribute:
                             html = await this.chromiumWebBrowser.GetSourceAsync();
-                            string src = html.SelectNode(item.Path, "src");
-                            sb.AppendLine(src);
-                            break;
-
-                        case BrowserEvent.Link:
-                            html = await this.chromiumWebBrowser.GetSourceAsync();
-                            string aTagXPath = $"{item.Path}//a";
-                            var hrefs = html.SelectNodes(aTagXPath, "href");
-                            if (hrefs == null) continue;
-                            foreach (var href in hrefs)
+                            string attr = html.SelectNode(item.Path, item.Value);
+                            if (string.IsNullOrWhiteSpace(attr))
                             {
-                                sb.AppendLine(href);
+                                throw new Exception($"{item.Value} 속성 값을 찾을 수 없습니다.");
                             }
+                            sb.AppendLine(attr);
                             break;
                         default:
                             break;
@@ -268,6 +232,86 @@ namespace AutoBrowser
                 this.chromiumWebBrowser.ShowDevTools();
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+       
+
+        private void buttonWorkAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BrowserEvent _event = (BrowserEvent)Enum.Parse(typeof(BrowserEvent), comboBoxEvent.SelectedIndex.ToString());
+
+                switch (_event)
+                {
+                    case BrowserEvent.Click:
+                    case BrowserEvent.Load:
+                    case BrowserEvent.Text:
+                        if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
+                        break;
+                    case BrowserEvent.Input:
+                    case BrowserEvent.Attribute:
+                        if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
+                        if (string.IsNullOrWhiteSpace(textBoxValue.Text)) throw new Exception("입력 값이 필요합니다");
+                        break;
+                    case BrowserEvent.Wait:
+                        if (string.IsNullOrWhiteSpace(textBoxValue.Text)) throw new Exception("입력 값이 필요합니다");
+                        break;
+
+                    default:
+                        break;
+                }
+
+                var workEvent = new WorkEvent(_event, textBoxPath.Text, textBoxValue.Text);
+                WorkManager.WorkEvents.Add(workEvent);
+                this.textBoxPath.Text = "";
+                this.textBoxValue.Text = "";
+                DataReload();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private void dataGridViewEvents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var dataGridView = sender as DataGridView;
+            var index = e.RowIndex;
+            DataGridViewRow row = dataGridView.Rows[index];
+            var dataBoundItem = row.DataBoundItem as WorkEvent;
+            this.comboBoxEvent.SelectedItem = dataBoundItem.EventType;
+            this.textBoxPath.Text = dataBoundItem.Path;
+            this.textBoxValue.Text = dataBoundItem.Value;
+        }
+
+        private void buttonWorkEdit_Click(object sender, EventArgs e)
+        {
+            BrowserEvent _event = (BrowserEvent)Enum.Parse(typeof(BrowserEvent), comboBoxEvent.SelectedIndex.ToString());
+
+            switch (_event)
+            {
+                case BrowserEvent.Click:
+                case BrowserEvent.Load:
+                case BrowserEvent.Text:
+                    if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
+                    break;
+                case BrowserEvent.Input:
+                case BrowserEvent.Attribute:
+                    if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
+                    if (string.IsNullOrWhiteSpace(textBoxValue.Text)) throw new Exception("입력 값이 필요합니다");
+                    break;
+                case BrowserEvent.Wait:
+                    if (string.IsNullOrWhiteSpace(textBoxValue.Text)) throw new Exception("입력 값이 필요합니다");
+                    break;
+
+                default:
+                    break;
+            }
+
+            var workEvent = new WorkEvent(_event, textBoxPath.Text, textBoxValue.Text);
+
+            //this.dataGridViewEvents.SelectedRows.data
         }
     }
 }

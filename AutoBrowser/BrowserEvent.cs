@@ -13,7 +13,6 @@ namespace AutoBrowser
         Wait,
         Load,
         Text,
-        Image,
-        Link
+        Attribute
     }
 }

@@ -47,6 +47,7 @@ namespace AutoBrowser
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridViewEvents = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.buttonWorkEdit = new System.Windows.Forms.Button();
             this.buttonWorkDo = new System.Windows.Forms.Button();
             this.buttonWorkAdd = new System.Windows.Forms.Button();
             this.textBoxValue = new System.Windows.Forms.RichTextBox();
@@ -220,9 +221,9 @@ namespace AutoBrowser
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.Controls.Add(this.dataGridViewEvents);
-            this.panel4.Location = new System.Drawing.Point(2, 218);
+            this.panel4.Location = new System.Drawing.Point(2, 239);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(329, 489);
+            this.panel4.Size = new System.Drawing.Size(329, 468);
             this.panel4.TabIndex = 1;
             // 
             // dataGridViewEvents
@@ -231,18 +232,22 @@ namespace AutoBrowser
             this.dataGridViewEvents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewEvents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewEvents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.dataGridViewEvents.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewEvents.Name = "dataGridViewEvents";
+            this.dataGridViewEvents.ReadOnly = true;
             this.dataGridViewEvents.RowHeadersWidth = 62;
             this.dataGridViewEvents.RowTemplate.Height = 23;
-            this.dataGridViewEvents.Size = new System.Drawing.Size(329, 489);
+            this.dataGridViewEvents.Size = new System.Drawing.Size(329, 468);
             this.dataGridViewEvents.TabIndex = 0;
+            this.dataGridViewEvents.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEvents_CellDoubleClick);
             this.dataGridViewEvents.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEvents_CellEndEdit);
             // 
             // panel3
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.buttonWorkEdit);
             this.panel3.Controls.Add(this.buttonWorkDo);
             this.panel3.Controls.Add(this.buttonWorkAdd);
             this.panel3.Controls.Add(this.textBoxValue);
@@ -253,14 +258,26 @@ namespace AutoBrowser
             this.panel3.Controls.Add(this.comboBoxEvent);
             this.panel3.Location = new System.Drawing.Point(2, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(449, 212);
+            this.panel3.Size = new System.Drawing.Size(329, 239);
             this.panel3.TabIndex = 0;
+            // 
+            // buttonWorkEdit
+            // 
+            this.buttonWorkEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonWorkEdit.Location = new System.Drawing.Point(3, 181);
+            this.buttonWorkEdit.Name = "buttonWorkEdit";
+            this.buttonWorkEdit.Size = new System.Drawing.Size(323, 23);
+            this.buttonWorkEdit.TabIndex = 27;
+            this.buttonWorkEdit.Text = "동작 수정";
+            this.buttonWorkEdit.UseVisualStyleBackColor = true;
+            this.buttonWorkEdit.Click += new System.EventHandler(this.buttonWorkEdit_Click);
             // 
             // buttonWorkDo
             // 
             this.buttonWorkDo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonWorkDo.Location = new System.Drawing.Point(3, 181);
+            this.buttonWorkDo.Location = new System.Drawing.Point(3, 210);
             this.buttonWorkDo.Name = "buttonWorkDo";
             this.buttonWorkDo.Size = new System.Drawing.Size(323, 23);
             this.buttonWorkDo.TabIndex = 26;
@@ -406,6 +423,7 @@ namespace AutoBrowser
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button buttonWorkAdd;
         private System.Windows.Forms.Button buttonWorkDo;
+        private System.Windows.Forms.Button buttonWorkEdit;
     }
 }
 
