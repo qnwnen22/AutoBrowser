@@ -93,7 +93,7 @@ namespace AutoBrowser
             }
         }
 
-        
+
 
 
 
@@ -133,22 +133,11 @@ namespace AutoBrowser
 
                             var paths = item?.Path.Split("\n");
                             if (paths == null) continue;
-                            var values = item?.Value.Split("\n");
-                            if (values == null) continue;
 
                             foreach (var path in paths)
                             {
-                                if (string.IsNullOrWhiteSpace(path))
-                                {
-                                    html = await this.chromiumWebBrowser.GetSourceAsync();
-                                }
-                                else
-                                {
-                                    await this.chromiumWebBrowser.LoadUrlAsync(item.Path);
-                                    html = await this.chromiumWebBrowser.GetSourceAsync();
-                                }
-
-                                foreach (var value in values)
+                                html = await this.chromiumWebBrowser.GetSourceAsync();
+                                foreach (var value in paths)
                                 {
                                     string text = html.SelectNode(value, HtmlType.InnerText);
                                     if (string.IsNullOrWhiteSpace(text))
@@ -234,7 +223,7 @@ namespace AutoBrowser
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-       
+
 
         private void buttonWorkAdd_Click(object sender, EventArgs e)
         {
