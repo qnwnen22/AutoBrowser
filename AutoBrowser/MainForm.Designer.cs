@@ -57,6 +57,7 @@ namespace AutoBrowser
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxEvent = new System.Windows.Forms.ComboBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.asdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.MainPanel.SuspendLayout();
@@ -77,7 +78,8 @@ namespace AutoBrowser
             this.ToolStripMenuItemWorkSave,
             this.ToolStripMenuItemWorkLoad,
             this.ToolStripMenuItemSetting,
-            this.devToolsToolStripMenuItem});
+            this.devToolsToolStripMenuItem,
+            this.asdToolStripMenuItem});
             this.MenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip1.Name = "MenuStrip1";
             this.MenuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
@@ -364,6 +366,13 @@ namespace AutoBrowser
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // asdToolStripMenuItem
+            // 
+            this.asdToolStripMenuItem.Name = "asdToolStripMenuItem";
+            this.asdToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
+            this.asdToolStripMenuItem.Text = "asd";
+            this.asdToolStripMenuItem.Click += new System.EventHandler(this.asdToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -424,6 +433,7 @@ namespace AutoBrowser
         private System.Windows.Forms.Button buttonWorkAdd;
         private System.Windows.Forms.Button buttonWorkDo;
         private System.Windows.Forms.Button buttonWorkEdit;
+        private System.Windows.Forms.ToolStripMenuItem asdToolStripMenuItem;
     }
 }
 

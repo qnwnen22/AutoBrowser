@@ -2,7 +2,6 @@
 using CefSharp;
 using CefSharp.WinForms;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Web;
@@ -276,31 +275,41 @@ namespace AutoBrowser
 
         private void buttonWorkEdit_Click(object sender, EventArgs e)
         {
-            BrowserEvent _event = (BrowserEvent)Enum.Parse(typeof(BrowserEvent), comboBoxEvent.SelectedIndex.ToString());
-
-            switch (_event)
+            try
             {
-                case BrowserEvent.Click:
-                case BrowserEvent.Load:
-                case BrowserEvent.Text:
-                    if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
-                    break;
-                case BrowserEvent.Input:
-                case BrowserEvent.Attribute:
-                    if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
-                    if (string.IsNullOrWhiteSpace(textBoxValue.Text)) throw new Exception("입력 값이 필요합니다");
-                    break;
-                case BrowserEvent.Wait:
-                    if (string.IsNullOrWhiteSpace(textBoxValue.Text)) throw new Exception("입력 값이 필요합니다");
-                    break;
+                BrowserEvent _event = (BrowserEvent)Enum.Parse(typeof(BrowserEvent), comboBoxEvent.SelectedIndex.ToString());
 
-                default:
-                    break;
+                switch (_event)
+                {
+                    case BrowserEvent.Click:
+                    case BrowserEvent.Load:
+                    case BrowserEvent.Text:
+                        if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
+                        break;
+                    case BrowserEvent.Input:
+                    case BrowserEvent.Attribute:
+                        if (string.IsNullOrWhiteSpace(textBoxPath.Text)) throw new Exception("위치정보가 필요합니다");
+                        if (string.IsNullOrWhiteSpace(textBoxValue.Text)) throw new Exception("입력 값이 필요합니다");
+                        break;
+                    case BrowserEvent.Wait:
+                        if (string.IsNullOrWhiteSpace(textBoxValue.Text)) throw new Exception("입력 값이 필요합니다");
+                        break;
+
+                    default:
+                        break;
+                }
+
+                var workEvent = new WorkEvent(_event, textBoxPath.Text, textBoxValue.Text);
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
 
-            var workEvent = new WorkEvent(_event, textBoxPath.Text, textBoxValue.Text);
+        private void asdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
-            //this.dataGridViewEvents.SelectedRows.data
         }
     }
 }
